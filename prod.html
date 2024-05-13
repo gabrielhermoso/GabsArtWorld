@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Store</title>
+  <link rel="stylesheet" href="prod.css">
+</head>
+<body>
+  <header id="header">
+    
+    <div id="menu-icon" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <img src="https://img.icons8.com/?size=50&id=11781&format=png" alt="Account Icon" id="account-icon" onclick="openAccountModal()">
+     
+    <nav id="nav">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#footer">Help</a></li>
+            
+        </ul>
+     </nav>
+</header>
+<div class="cart-container">
+  <div class="cart-icon" onclick="toggleCart()">
+       <img src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/shopping-cart-64.png" alt="Cart Icon" id="cart-img">
+       <span id="cart-text"></span>
+       </div>
+
+       <div class="cart">
+       <h2>Shopping Cart</h2>
+       <ul id="cart-items">
+           <!-- Cart items will be displayed here -->
+       </ul>
+       <p id="cart-total">Total: $0.00</p>
+    
+     
+       <div>
+           <label><input type="checkbox" id="select-all-checkbox" onchange="selectAllItems(this)"> Select All</label>
+           <button onclick="addPaymentMethod()">Add Payment Method</button>
+           <button onclick="placeOrder()">Place Order</button>
+       </div>
+   </div>
+</div>
+   
+    
+<div id="account-modal" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="closeAccountModal()">&times;</span>
+
+      <!-----------login form ------------>
+
+      <div id="login-form" style="display: none;">
+          <h2>Login</h2>
+          <input type="email" id="login-email" placeholder="Email">
+          <div class="show-password">
+              <input type="password" id="login-password" placeholder="Password">
+              <span class="toggle-password" onclick="togglePassword('login-password')">Show</span>
+          </div>
+          <button onclick="login()">Login</button>
+          <p>Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
+      </div>
+
+      <!-------sign up form--------------->
+
+      <div id="signup-form" style="display: none;">
+          <h2>Sign Up</h2>
+          <input type="text" id="signup-firstname" placeholder="First Name">
+          <input type="text" id="signup-lastname" placeholder="Last Name">
+          <input type="email" id="signup-email" placeholder="Email">
+          <div class="show-password">
+              <input type="password" id="signup-password" placeholder="Password">
+              <span class="toggle-password" onclick="togglePassword('signup-password')">Show</span>
+          </div>
+          <button onclick="signup()">Sign Up</button>
+          <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+      </div>
+      
+      <div id="welcomemessage" style="display: none;">
+        <h2>Welcome, <span id="user-name"></span></h2>
+        <p>Your Address: <span id="user-address"></span></p>
+        <a href="#" onclick="showAddressForm()">Edit Address</a>
+        <button onclick="logout()">Logout</button>
+        
+      </div>
+
+      <!----------address form------------------>
+
+    <div id="address-form" style="display: none;">
+      <h2>Edit Address</h2>
+      <input type="text" id="address" placeholder="Address">
+      <input type="text" id="city" placeholder="City">
+      <select id="country">
+          <option value="Philippines">Philippines</option> <!-- You may populate more options as needed -->
+      </select>
+      <select id="province">
+        <option value="none">Select Province</option>
+    </select>
+      <input type="text" id="postal-code" placeholder="Postal/Zipcode">
+      <input type="text" id="phone" placeholder="Phone">
+      <button onclick="updateAddress()">Update Address</button>
+    </div>
+    
+  </div>
+</div>
+ 
+
+ <!-----------------main--------------->
+
+
+  <main>
+    <section id="home" class="section">
+        <h2>Collections</h2>
+        <div class="carousel-container">
+            <div class="carousel">
+                <!-- Carousel images -->
+                <img src="Screenshot (74).png" alt="Image 1">
+                <img src="Screenshot (75).png" alt="Image 2">
+                <img src="Screenshot (76).png" alt="Image 3">
+                <!-- Carousel images -->
+                <img src="Screenshot (74).png" alt="Image 1">
+                <img src="Screenshot (75).png" alt="Image 2">
+                <img src="Screenshot (76).png" alt="Image 3">
+            </div>
+        </div>
+    </section>   
+
+ 
+    <section id="shop" class="section">
+      <h2>Shop</h2>
+      <div class="container">
+        <!-- Product 1 -->
+        <div class="product" id="product1">  
+          <img src="Screenshot (77).png" alt="Product Image"> 
+          <div class="product-info">
+            <h3>Product Name 1</h3>
+            <p class="price">Price: $25.00</p>
+            <div class="sizes">
+              <label for="size1">Size:</label>
+              <select id="size1" name="size1">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+              </select>
+            </div>
+            <div class="quantity">
+              <label for="quantity1">Quantity:</label>
+              <input type="number" id="quantity1" name="quantity1" value="1" min="1">
+            </div>
+            <button class="add-to-cart" onclick="addToCart(1)">Add to Cart</button>
+          </div>
+        </div>         
+        <!-- Product 2 -->
+        <div class="product" id="product2">  
+          <img src="Screenshot (74).png" alt="Product Image 2"> 
+          <div class="product-info">
+            <h3>Product Name 2</h3>
+            <p class="price">Price: $25.00</p>
+            <div class="sizes">
+              <label for="size2">Size:</label>
+              <select id="size2" name="size2">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+              </select>
+            </div>
+            <div class="quantity">
+              <label for="quantity2">Quantity:</label>
+              <input type="number" id="quantity2" name="quantity2" value="1" min="1">
+            </div>
+            <button class="add-to-cart" onclick="addToCart(2)">Add to Cart</button>
+          </div>
+        </div>
+         <!-- Product 3 -->
+         <div class="product" id="product3">  
+            <img src="Screenshot (75).png" alt="Product Image 2"> 
+            <div class="product-info">
+              <h3>Product Name 3</h3>
+              <p class="price">Price: $25.00</p>
+              <div class="sizes">
+                <label for="size3">Size:</label>
+                <select id="size3" name="size3">
+                  <option value="small">Small</option>
+                  <option value="medium">Medium</option>
+                  <option value="large">Large</option>
+                </select>
+              </div>
+              <div class="quantity">
+                <label for="quantity3">Quantity:</label>
+                <input type="number" id="quantity3" name="quantity3" value="1" min="1">
+              </div>
+              <button class="add-to-cart" onclick="addToCart(3)">Add to Cart</button>
+            </div>
+          </div>
+           <!-- Product 4 -->
+        <div class="product" id="product4">  
+            <img src="Screenshot (76).png" alt="Product Image 2"> 
+            <div class="product-info">
+              <h3>Product Name 4</h3>
+              <p class="price">Price: $25.00</p>
+              <div class="sizes">
+                <label for="size4">Size:</label>
+                <select id="size4" name="size4">
+                  <option value="small">Small</option>
+                  <option value="medium">Medium</option>
+                  <option value="large">Large</option>
+                </select>
+              </div>
+              <div class="quantity">
+                <label for="quantity4">Quantity:</label>
+                <input type="number" id="quantity4" name="quantity4" value="1" min="1">
+              </div>
+              <button class="add-to-cart" onclick="addToCart(4)">Add to Cart</button>
+            </div>
+          </div>
+        <!-- Add more products as needed -->
+      </div>
+  </section>
+  </div>
+ </section>
+
+ <section id="about" class="section">
+  <h2>About Me</h2>
+  <div class="example-input">
+    <!-- First image and text -->
+    <div class="abouttext">
+      <img src="https://th.bing.com/th/id/OIP.CQghX8EHW5S7SItZkBtIFgHaF8?rs=1&pid=ImgDetMain" alt="Image" class="aboutimg">
+      <div class="abouttext">
+        <h1>Personal Details</h1>
+        <p><br> am Gabriel Hermoso, a 2nd year college</br> student studying information technologies.</p>
+      </div>
+    </div>
+    <!-- Second image and text -->
+    <div class="abouttext">
+      <div class="abouttext">
+        <h1>Additional Details</h1>
+        <p>This is some additional information.</p>
+      </div>
+      <img src="https://th.bing.com/th/id/OIP.CQghX8EHW5S7SItZkBtIFgHaF8?rs=1&pid=ImgDetMain" alt="Second Image" class="aboutimg-right">
+    </div>
+  </div>
+</section>
+</main>
+ 
+
+
+    
+      <style>
+
+        .aboutimg-right{
+          width: 200px;
+          margin-right:0;
+          
+        }
+        .aboutimg{
+          width: 200px;
+          margin-right:20px;
+        }
+        .abouttext p{
+           max-width: 400px;
+           color: #f0f0f0;
+         margin-top: 5px;
+        }
+        .abouttext h1{
+          background: linear-gradient(125.31deg, #F2015B 0%, #ED02F1 47.92%, #04038D 100%);
+          -webkit-background-clip: text; /* For Safari/Chrome */
+          background-clip: text;
+          color: transparent;
+          font-size: 30px;
+          margin-bottom: 0;
+        }
+        .aboutimg-right {
+    width: 200px;
+    margin-left: 20px;
+  }
+      
+    </style>
+   
+
+ <footer>
+  <div id="footer" class="footer-container">
+    <div class="footer-logo">
+      <h2>Gabriel Hermoso Website</h2>
+      <p class="tagline">Welcome to my modern website! Discover seamless navigation,</p>
+      <p class="tagline">captivating design, and high-quality content optimized for all devices.</p>
+      <p class="tagline">With fast loading speeds and intuitive features, explore our</p>
+      <p class="tagline">interactive elements and secure browsing experience. Dive in</p>
+      <p class="tagline">and experience the essence of our brand with ease.</p>
+    </div>
+    <div class="footer-links">
+      <ul>
+        <li><a href="#">Help/Support</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.facebook.com/Gabrielhermoso415"><img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="Facebook"></a>
+      <a href="https://www.instagram.com/gab_peeters/"><img src="https://cdn-icons-png.flaticon.com/128/2111/2111463.png" alt="Instagram"></a>
+      <a href="https://myaccount.google.com/?utm_source=OGB&utm_medium=app"><img src="https://cdn-icons-png.flaticon.com/128/5968/5968534.png" alt="Gmail"></a>
+    </div>
+  </div>
+</footer>
+
+  <!-- Message icon -->
+<div class="message-icon" id="messageIcon">
+  <img src="https://cdn-icons-png.flaticon.com/128/2190/2190552.png" alt="Message Icon">
+</div>
+
+<!-- Chat box -->
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">
+    <span class="exit-button" id="exitButton">x</span>
+  </div>
+  <div class="chat-messages" id="messages">
+    <!-- Chat messages will be displayed here -->
+  </div>
+  <div class="chat-footer">
+    <!-- Suggested messages will be displayed here -->
+    <div id="suggestedMessages">
+      <!-- Suggested messages go here -->
+    </div>
+    <!-- Input area -->
+    <div class="input-container">
+      <input type="text" id="messageInput" placeholder="Type your message...">
+      <button id="sendMessage">Send</button>
+    </div>
+  </div>
+</div>
+<style>/* Style for the message icon */
+ .footer-container {
+      
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     background-color: #333;
+     color: #fff;
+     padding: 20px;
+     font-family: Arial, sans-serif;
+   }
+   .footer-logo h2 {
+    
+   animation-name: slideInTop;
+   animation-duration: 1s;
+   animation-delay: 0.5s;
+   animation-fill-mode: forwards;
+ }
+ 
+ @keyframes slideInTop {
+   from {
+     opacity: 0;
+     transform: translateY(-50px);
+   }
+   to {
+     opacity: 1;
+     transform: translateY(0);
+   }
+ }
+    
+ .tagline {
+   animation-name: slideInLeft;
+   animation-duration: 1s;
+   animation-delay: 0.5s;
+   animation-fill-mode: forwards;
+ }
+ 
+ @keyframes slideInLeft {
+   from {
+     opacity: 0;
+     transform: translateX(-50px);
+   }
+   to {
+     opacity: 1;
+     transform: translateX(0);
+   }
+ }
+ 
+   /* Footer Logo */
+   .footer-logo h2 {
+     background: linear-gradient(125.31deg, #F2015B 0%, #ED02F1 47.92%, #04038D 100%);
+     -webkit-background-clip: text; /* For Safari/Chrome */
+     background-clip: text; /* For other browsers */
+     color: transparent; /* Make the text transparent */
+     margin: 0;
+     font-size: 40px;
+     margin-bottom: 10px;
+      
+ }
+ 
+   .tagline {
+     margin-top: 1px;
+     font-size: 14px;
+     padding: 0;
+     margin-bottom: 5px;
+     text-align:inherit ;
+   }
+   .message-form {
+   max-width: 400px;
+   
+ }
+  /* Footer Links */
+  .footer-links {
+  display: flex;
+  justify-content: center;
+  margin-top: auto; /* Align links to the bottom */
+  align-self: flex-end; /* Align links to the bottom */
+  margin-left: 5px;
+  
+}
+
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links ul li {
+    display: inline-block;
+    margin-right: 20px;
+    
+    
+  }
+
+  .footer-links ul li:last-child {
+    margin-right: 0;
+  }
+
+  .footer-links ul li a {
+    color: #fff;
+    text-decoration: none;
+     
+  }
+
+  .footer-links ul li a:hover {
+    color: #ccc;
+  }
+  .footer-links img{
+   
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease-in-out;
+  margin-right: 15px;
+  
+}
+.footer-links img:hover{
+  transform: scale(1.2);
+}
+.message-icon img{
+  max-height: 65px;
+    height: 100%;
+    max-width: 65px;
+    width: 100%;
+}
+
+  .message-icon {
+    
+    position: fixed;
+    bottom: 40px;
+    right: 15px;
+    cursor: pointer;
+  }
+  /* Style for the suggested messages */
+.suggested-message {
+  padding: 8px;
+  margin: 5px;
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+/* Hover effect for suggested messages */
+.suggested-message:hover {
+  background-color: #e0e0e0;
+}
+
+  
+  /* Style for the chat box */
+  .chat-box {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    min-width: 250px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Style for the chat header */
+  .chat-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .exit-button {
+    cursor: pointer;
+  }
+  
+   /* Style for the chat messages */
+.chat-messages {
+  height: 220px;
+  width: 320px;
+  padding: 10px;
+}
+
+ /* Style for the sent message */
+ .message.sent {
+  align-self: flex-end;
+  background-color: #DCF8C6; /* Light green for sent messages */
+  max-width: 160px;
+  width: 100%;
+  margin-left: 115px;
+  border-radius: 15px 15px 0px 15px;
+}
+
+/* Style for the received message */
+.message.received {
+  align-self: flex-start;
+  background-color: #E5E5EA; /* Light gray for received messages */
+  max-width: 160px;
+  width: 100%;
+  border-radius: 15px 15px 15px 0px;
+}
+
+/* Style for the message text */
+.message div {
+  padding: 8px;
+  border-radius: 15px;
+  max-width: 70%; /* Adjust the max-width to your preference */
+  word-wrap: break-word;
+  margin: 5px;
+}
+
+/* Style for the chat messages */
+.chat-messages {
+  height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+/* Style for the chat footer */
+.chat-footer {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style for the input container */
+.input-container {
+  display: flex;
+}
+
+/* Style for the message input */
+#messageInput {
+  width: calc(100% - 80px); /* Adjust width to accommodate send button */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style for the send button */
+#sendMessage {
+  width: 80px;
+  padding: 8px 15px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+  /* For screens up to 768px width */
+
+  @media(max-width:413px) {
+    .footer-links img{
+      justify-self: center;
+     margin-right: 35px;
+    }
+    .footer-links ul li a{
+      margin-right: 10px;
+    }
+    
+  }
+@media (max-width: 768px) {
+  .footer-links img{
+    margin-top: 13px;
+     justify-self: center;
+     margin-right: 45px;
+   
+  }
+  
+  /* Center the footer content */
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Adjust padding for smaller screens */
+  .footer-container {
+    padding: 10px;
+  }
+
+  /* Adjust the max-width and margin for the message form */
+  .message-form {
+    max-width: 95%;
+    margin: 20px 0;
+  }
+
+  /* Adjust margin between footer links */
+  .footer-links  {
+    margin-right: 55px;
+    margin-top: 10px;
+  }
+
+  /* Adjust height of the message icon */
+  .message-icon img {
+    max-height: 50px;
+    max-width: 50px;
+     
+  }
+
+  /* Adjust position of the message icon */
+  .message-icon {
+    bottom: 20px;
+    right: 10px;
+  }
+
+  /* Style for the chat box at smaller screens */
+  .chat-box {
+    width: 90%;
+    right: 5%;
+    bottom: 20px;
+  }
+
+  /* Style for the chat messages at smaller screens */
+  .chat-messages {
+    height: 160px;
+    width: 90%;
+  }
+
+  /* Style for the sent message at smaller screens */
+  .message.sent{
+    margin-left: 160px;
+  } 
+  /* Style for the received message at smaller screens */
+ 
+}
+
+  </style>
+  <script>// Get DOM elements
+    const messageIcon = document.getElementById('messageIcon');
+    const chatBox = document.getElementById('chatBox');
+    const exitButton = document.getElementById('exitButton');
+    const messageInput = document.getElementById('messageInput');
+    const sendMessageBtn = document.getElementById('sendMessage');
+    const messagesDiv = document.getElementById('messages');
+    const suggestedMessagesDiv = document.getElementById('suggestedMessages');
+    
+    // Event listener for clicking the message icon
+    messageIcon.addEventListener('click', () => {
+      chatBox.style.display = 'block';
+    });
+    
+    // Event listener for clicking the exit button
+    exitButton.addEventListener('click', () => {
+      chatBox.style.display = 'none';
+    });
+    
+    // Event listener for sending a message
+    sendMessageBtn.addEventListener('click', () => {
+      sendMessage();
+    });
+    
+    // Function to send a message
+    function sendMessage() {
+      const messageText = messageInput.value.trim();
+      if (messageText !== '') {
+        appendMessage('You', messageText, 'right'); // Assume sender's messages are on the right
+        // Here, you can send the message to the backend for processing
+        // and receive an appropriate response.
+        // For now, let's simulate receiving a response after a delay.
+        setTimeout(() => {
+          const response = suggestReply(messageText);
+          appendMessage('Bot', response, 'left'); // Assume received messages are on the left
+        }, 200);
+        messageInput.value = ''; // Clear input
+      }
+    }
+    
+    // Function to append a message to the chat box
+function appendMessage(sender, message) {
+  const messageDiv = document.createElement('div');
+  messageDiv.innerHTML = `<div>${message}</div>`;
+  messageDiv.classList.add('message');
+  
+  if (sender === 'You') {
+    messageDiv.classList.add('sent');
+  } else {
+    messageDiv.classList.add('received');
+  }
+  
+  messagesDiv.appendChild(messageDiv);
+}
+
+
+    
+    // Function to suggest a reply based on the received message
+    function suggestReply(message) {
+      // Here you can implement logic to suggest a reply based on the received message
+      // For now, let's simulate a simple auto-reply
+      if (message.toLowerCase().includes('hello')) {
+        return 'Hi there!';
+      }else if(message.toLowerCase().includes('what is you best seller?')) {
+        return 'Our best seller is the product 1';
+      }else if(message.toLowerCase().includes('how to order?')) {
+        return 'add to cart the product you want to buy and placed your order';
+      } else {
+    return 'Please wait the shop owner to notice your concern. Thank You!';
+  }
+  }
+    
+    // Sample suggested messages (you can replace these with your own)
+    const suggestedMessages = ['Hello', 'What is you best seller?', 'How to order?'];
+    
+    // Display suggested messages
+    suggestedMessages.forEach(message => {
+      const suggestionDiv = document.createElement('div');
+      suggestionDiv.textContent = message;
+      suggestionDiv.classList.add('suggested-message');
+      suggestionDiv.addEventListener('click', () => {
+        messageInput.value = message;
+        sendMessage(); // Automatically send the suggested message when clicked
+      });
+      suggestedMessagesDiv.appendChild(suggestionDiv);
+    });
+    </script>
+<script src="prod.js"></script>
+</body>
+</html>
+  

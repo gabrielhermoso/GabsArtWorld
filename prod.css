@@ -1,0 +1,963 @@
+ /*------------------------  shop product styles -------------------------------*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+  
+ /* Example section container */
+ /* Example section container */
+ section .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  
+  gap: 20px;
+  padding: 20px;
+  max-width: 100%; /* Ensure container doesn't exceed the width of the viewport */
+  margin: 0 auto; /* Center the container horizontally */
+  background-color: black;
+ 
+}
+
+/* Create a blurred transparent white overlay for containers */
+section .container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0); /* Transparent white background */
+  backdrop-filter: blur(10px); /* Apply a blur effect to the overlay */
+  z-index: -2; /* Set z-index to a lower value to position it behind its parent container */
+}
+
+
+@media screen and (max-width: 768px) {
+  section .container {
+      padding: 5px; /* Adjust padding for smaller screens */
+      gap: 5px; /* Adjust gap for smaller screens */
+  }
+   
+}
+  
+  
+.product {
+  background-color: rgba(255, 255, 255, 0.753);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  width: 200px;
+  margin-bottom: 20px; /* Add margin bottom for spacing */
+}
+
+.product:hover {
+  transform: translateY(-3px);
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.product-info {
+  padding: 15px;
+}
+
+.product-info h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #333;
+  text-align: center;
+}
+
+.product-info .description {
+  color: #666;
+  margin-bottom: 15px;
+  text-align: center;
+}
+ 
+
+.price {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #007bff;
+  text-align: center;
+}
+
+.sizes select {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.add-to-cart {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px 0;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background-color: #005dc0;
+}
+/* Add media query for smaller screens */
+@media screen and (max-width: 768px) {
+  section .container {
+      padding: 10px; /* Adjust padding for smaller screens */
+      gap: 10px; /* Adjust gap for smaller screens */
+  }
+  
+  .product {
+    width: 150px; /* Adjust product width for smaller screens */
+    margin-bottom: 10px; /* Adjust margin bottom for spacing */
+  }
+
+  .product-info h2 {
+    font-size: 1em; /* Adjust font size for product titles */
+    margin-bottom: 5px; /* Adjust margin bottom for product titles */
+  }
+
+  .product-info .description {
+    font-size: 0.9em; /* Adjust font size for product description */
+    margin-bottom: 10px; /* Adjust margin bottom for product description */
+  }
+
+  .price {
+    font-size: 1em; /* Adjust font size for price */
+  }
+
+  .add-to-cart {
+    width: 70%; /* Adjust width of add-to-cart button */
+    padding: 8px 0; /* Adjust padding of add-to-cart button */
+    font-size: 0.9em; /* Adjust font size of add-to-cart button */
+  }
+
+  .cart-container {
+    top: 50px; /* Adjust top position of cart container */
+  }
+
+  .cart-icon {
+    width: 30px; /* Adjust width of cart icon */
+    height: 30px; /* Adjust height of cart icon */
+  }
+}
+
+.cart-container {
+  position: fixed;
+  top: 65px;
+  right: 20px;
+  -webkit-text-fill-color: rgb(15, 1, 1);
+  z-index: 9999;
+}
+
+.cart-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-icon img{
+  height:30px ;
+  width: 30px;
+}
+
+.cart-icon.active {
+  background-color: #ff0000;
+}
+
+.cart-icon:hover {
+  background-color: #b1b0a5;
+}
+
+.cart {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 90%; /* Adjusted width for responsiveness */
+  max-width: 400px; /* Added maximum width */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: none;
+  padding: 20px;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.cart.active {
+  display: block;
+  opacity: 1;
+  max-height: 400px;
+  width: 800px;
+   
+  max-width: 500px;
+  overflow-y: auto;
+  background-color: #726f6fef;
+  color: #1234ca;
+  border: 1px solid #faf9f6;
+  box-shadow: 0 2px 5px rgba(156, 156, 155, 0.5);
+}
+
+.empty-cart-message {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+  font-weight: bold;
+}
+
+/* CSS for item checkbox */
+li {
+  display: flex;
+  align-items: center;
+}
+
+li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* CSS for item checkbox */
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.cart-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.cart-item img {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.cart-item input[type="number"] {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.cart-item button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.cart-item button:hover {
+  background-color: #c82333;
+}
+
+/* CSS for animation */
+@keyframes bounce {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.2);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+.add-to-cart-animation {
+  animation: bounce 0.5s ease-in-out;
+}
+ /* Add media query for smaller screens */
+ /* Add media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .cart.active {
+      width: 300px; /* Adjust width for smaller screens */
+      max-width: 700px; /* Remove maximum width constraint for smaller screens */
+      max-height: 500px; /* Adjust maximum height for smaller screens */
+  }
+   
+}
+/* CSS for the animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fadeInAnimation {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slideInFromLeftAnimation {
+  animation: slideInFromLeft 0.5s ease-in-out;
+}
+
+/* css for footer*/
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px; /* Adjust font size for footer */
+  margin-top: 20px; /* Add margin to push footer down */
+}
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif; /* Use your preferred font here */
+}
+
+.tagline {
+  margin-top: 5px;
+  font-size: 14px;
+  font-family: 'Arial', sans-serif; /* Use your preferred font here */
+}
+
+.footer-message p {
+  margin: 0;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.footer-links ul li:last-child {
+  margin-right: 0;
+}
+
+.footer-links ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-links ul li a:hover {
+  color: #ccc;
+}
+
+
+.social-icons img{
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease-in-out;
+  margin-right: 15px;
+}
+.social-icons img:hover{
+  transform: scale(1.2);
+}
+
+
+/* -------------style form carousel --------------*/
+
+
+/* CSS for Carousel */
+.carousel-container {
+   
+  width: 900; /* Adjust width as needed */
+  min-width: 150px; /* Set max-width for better layout on larger screens */
+  overflow: hidden;
+  position: relative;
+  perspective: 1000px; /* Add perspective for 3D effect */
+  margin: 0 auto; /* Center the carousel horizontally */
+}
+
+
+.carousel {
+  display: flex;
+  animation: slide 10s infinite; /* Adjust timing as needed */
+}
+
+.carousel img {
+  width: 40%;
+  height: auto;
+  transition: transform 0.5s; /* Add smooth transition for 3D effect */
+}
+
+.carousel img:hover {
+  transform: scale(1.1); /* Add hover effect */
+}
+
+/* Keyframes for slide animation */
+@keyframes slide {
+  0% {
+      transform: translateX(0%);
+  }
+  100% {
+      transform: translateX(-200%); /* Change value for 3D sliding effect */
+  }
+}
+
+
+/* -------------------------  account modal---------------------------//
+
+/* Modal styles */
+#account-icon {
+  position: absolute;
+  right: 60px; /* Adjust as needed */
+  top: 115px; /* Adjust as needed */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  }
+  #account-icon:hover {
+  background-color: #b1b0a5;
+}
+  .modal {
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%; /* Adjusted width */
+      max-width: 500px; /* Maximum width */
+      height: auto; /* Auto height */
+      max-height: 80%; /* Maximum height */
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding-top: 60px;
+  }
+  
+  .modal-content {
+      background-color: #fefefe9f;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 90%; /* Adjusted width */
+      max-width: 400px; /* Maximum width */
+      
+  }
+  
+  .close {
+      color: #080101;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+  }
+  
+  /* Form styles */
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+  }
+  
+   /* Button styles */
+button {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  border: 1px solid #000; /* Black border */
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #000; /* Black background on hover */
+  color: #fff; /* White text on hover */
+}
+
+  
+  /* Show Password style */
+  .show-password {
+      position: relative;
+  }
+  
+  .show-password input[type="password"] {
+      padding-right: 30px;
+  }
+  
+  .show-password .toggle-password {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+  }
+  
+  /* Responsive styles */
+  @media screen and (max-width: 700px) {
+    .modal {
+        width: 400px; /* Adjusted width */
+    }
+    .modal-content {
+        width: 80%;
+        max-width: 100%;
+    }
+}
+
+/*----------------------------------------example input styles---------------------------//
+
+ /* General styles */
+ /* General styles */
+ /* General styles */
+ body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  background-image: url('https://i.pinimg.com/originals/19/32/4a/19324a087a3ff2fcd50154d9979231c5.gif'); /* Replace 'path/to/your/image.jpg' with the path to your image */
+  background-size: cover; /* Cover the entire background */
+  background-repeat: no-repeat; /* Prevent background image from repeating */
+}
+
+/* Header styles */
+header {
+  background-color: #33333373;
+  color: #fff;
+  padding: 20px 0; /* Increase padding for better visual */
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  z-index: 1000; /* Ensure header is above other content */
+  transition: background-color 0.3s ease; /* Add smooth transition for background color */
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+header nav ul li {
+  margin: 0 20px; /* Increase spacing between menu items */
+  margin-top: 10px;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px; /* Decrease font size for a more subtle look */
+  transition: color 0.3s ease; /* Add smooth transition for text color */
+}
+
+header nav ul li a:hover {
+  color: #919191;
+}
+/* Responsive styles */
+ 
+/* Add this CSS to style the menu icon bars and the "x" */
+ 
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #131212a1;
+  color: white;
+}
+
+#nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+#nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#nav ul li {
+  margin-bottom: 10px;
+}
+
+#nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+   
+}
+#nav ul li a:hover {
+  color: #919191;
+}
+
+#menu-icon {
+  display: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 999; /* Ensure the menu icon is above other content */
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
+  transition: 0.4s;
+}
+  
+#nav.open {
+  z-index: 1; /* Ensure the open navigation menu is below the menu icon */
+}
+
+/* Rotate the first and third bars to create an "x" */
+#menu-icon.open .bar:first-child {
+  transform: rotate(-45deg) translate(-5px, 1px);
+}
+ 
+#menu-icon.open .bar:last-child {
+  transform: rotate(45deg) translate(-5px, -1px);
+}
+#menu-icon.open .bar:nth-child(2) { 
+  display: none;
+  opacity: 0;
+}
+
+#menu-icon.open #close-icon {
+  display: block; /* Show close icon when menu is open */
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 500px) {
+  .cart-container {
+    position: fixed;
+    top: 3px;
+    right: 12px;
+    -webkit-text-fill-color: rgb(15, 1, 1);
+  }
+  .cart-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10%;
+    background-color:  #e6dddde5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #account-icon {
+    position: absolute;
+    right: 100px; /* Adjust as needed */
+    top: 3px; /* Adjust as needed */
+    width: 40px;
+    height: 40px;
+    border-radius: 10%;
+    background-color:  #e6dddde5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    #account-icon:hover {
+    background-color: #b1b0a5;
+  }
+  #header {
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #00000071;
+ 
+  }
+
+  #nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 75%;
+    max-width: 300px;
+    background-color: #00000071;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 0; /* Set a lower z-index for the closed navigation menu */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #nav.open {
+     
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transform: translateX(0);
+  }
+
+  #menu-icon {
+    display: block;
+    z-index: 999; /* Ensure the menu icon is above other content */
+  }
+   
+
+  #nav ul {
+     
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 40px;
+  }
+
+  #nav ul li {
+    
+    margin-bottom: 20px;
+  }
+
+  #menu-icon.open .bar:nth-child(2) {
+    opacity: 1;
+  }
+
+  #menu-icon.open {
+    position: absolute;
+    top: 20px;
+    right: 120px;
+    z-index: 999; /* Ensure the menu icon remains in front */
+  }
+
+  #close-icon {
+    position: static;
+    top: auto;
+    right: auto;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+}
+
+/* Shop styles */
+main {
+  padding-top: 60px; /* Increase padding to avoid overlap with fixed header */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Example section styling */
+section {
+  padding: 5% 3%; /* Percentage-based padding */
+  margin: 20px auto; /* Center the section horizontally */
+  border: 1px solid #ccc;
+  position: relative;
+  max-width: 1100px; /* Set max-width for better layout on larger screens */
+}
+
+/* Create a semi-transparent white overlay for sections */
+section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.103); /* Adjust the transparency by changing the last value (0.5) */
+  z-index: -1; /* Place the overlay behind other content */
+  backdrop-filter: blur(10px); /* Apply a blur effect to the overlay */
+}
+
+/* Example section content */
+section > div {
+  background-color: white; /* Set the background color of the section content */
+  padding: 20px;
+}
+
+.section h3 {
+  margin-bottom: 30px; /* Increase spacing below section headings */
+  text-align: center;
+  font-size: 24px; /* Increase font size for better emphasis */
+  color: #272525; /* Adjust text color for better contrast */
+  text-transform: uppercase;
+}
+
+.section h2 {
+  margin-bottom: 30px; /* Increase spacing below section headings */
+  text-align: center;
+  font-size: 28px; /* Increase font size for better emphasis */
+  color: #eee7e7; /* Adjust text color for better contrast */
+  text-transform: uppercase; /* Convert heading text to uppercase for a trendy look */
+  font-family: 'Permanent Marker', cursive; /* Use a graffiti-style font */
+  letter-spacing: 4px; /* Increase letter spacing for a more stylized look */
+  position: relative; /* Enable positioning for pseudo-element */
+  overflow: hidden; /* Hide overflow to contain pseudo-elements */
+}
+
+.section h2:before {
+  content: attr(data-text); /* Use data attribute for content */
+  position: absolute; /* Position pseudo-element absolutely */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #333; /* Adjust color for shadow */
+  text-shadow: 2px 2px 0px #000; /* Add shadow for effect */
+  white-space: nowrap; /* Prevent wrapping of text */
+  overflow: hidden; /* Hide overflowing text */
+  animation: splitText 4s forwards, autoAnimate 4s infinite alternate; /* Apply animations */
+}
+
+.section h2:after {
+  content: ''; /* Add content for pseudo-element */
+  position: absolute; /* Position pseudo-element absolutely */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #fff, #777, #333); /* Grayscale gradient for color */
+  opacity: 0.5; /* Adjust opacity for gradient */
+  z-index: -1; /* Move pseudo-element behind text */
+}
+
+.example-input {
+  background-color:  black; /* Transparent background */
+  border: 1px solid black;
+  border-radius: 8px; /* Adjust border radius for smoother edges */
+  padding: 5%; /* Percentage-based padding */
+  height: auto; /* Change height to auto for responsiveness */
+  width: 90%; /* Adjust width for responsiveness */
+  max-width: 900px; /* Set max-width for better layout on larger screens */
+  margin: 20px auto; /* Center the example input design */
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Horizontally center the input */
+  align-items: center; /* Vertically center the input */
+}
+
+
+.example-input input[type="text"],
+.example-input input[type="email"] {
+  width: calc(100% - 40px); /* Adjust input width for better spacing */
+  padding: 10px;
+  margin-bottom: 20px; /* Increase spacing between inputs */
+  border: none;
+  border-bottom: 1px solid #ccc; /* Add underline effect for inputs */
+  background-color: transparent; /* Make input background transparent */
+  transition: border-bottom-color 0.3s ease; /* Add smooth transition for underline color */
+}
+
+.example-input input[type="text"]:focus,
+.example-input input[type="email"]:focus {
+  outline: none;
+  border-bottom-color: #007bff; /* Change underline color on focus */
+}
+
+.example-input button {
+  display: block;
+  width: 100%; /* Make button full width */
+  padding: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Add smooth transition for button background color */
+}
+
+.example-input button:hover {
+  background-color: #0056b3; /* Change button background color on hover */
+}
+
+/* Media Query for adjusting padding at smaller screen sizes */
+@media screen and (max-width: 768px) {
+  section {
+      padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .example-input {
+      padding: 3%; /* Adjust padding for smaller screens */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .section h3 {
+      font-size: 18px; /* Decrease font size for smaller screens */
+  }
+  
+  .section h2 {
+      font-size: 20px; /* Decrease font size for smaller screens */
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .section h3 {
+      font-size: 16px; /* Further decrease font size for smaller screens */
+  }
+  
+  .section h2 {
+      font-size: 18px; /* Further decrease font size for smaller screens */
+  }
+}
+
